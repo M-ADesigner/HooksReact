@@ -1,13 +1,27 @@
 import React, { useState, useId } from 'react';
 import './Filters.css';
+import { useFilters } from '../hooks/useFilters';
 
 function Filters() {
-    const [minPrice, setminPrice] = useState(0);
+    //FUENTE DE LA VERDAD!!
+    const { setFilters, filters } = useFilters();
+    
     const minPRiceFilterId = useId();
     const categoryFilterId = useId();
 
+
     const handleChangeMinPrice = (e) => {
-        setminPrice(e.target.value);
+        setFilters((prevState) => ({
+            ...prevState,
+            minPrice: e.target.value,
+        }));
+    };
+
+    const handleChangeCategory = (event) => {
+        setFilters((prevState) => ({
+            ...prevState,
+            category: event.target.value,
+        }));
     };
 
     return (
@@ -20,17 +34,21 @@ function Filters() {
                     min="0"
                     max="1000"
                     onChange={handleChangeMinPrice}
+                    value={filters.minPrice}
                 />
                 <span>
-                    <sup>{minPrice}</sup>
+                    <sup>{filters.minPrice}</sup>
                 </span>
             </div>
 
             <div>
                 <label htmlFor={categoryFilterId}>Categoria</label>
-                <select id={categoryFilterId}>
+                <select
+                    id={categoryFilterId}
+                    onChange={handleChangeCategory}
+                >
                     <option value="all">Todas</option>
-                    <option value="laptos">Portatiles</option>
+                    <option value="laptops">Portatiles</option>
                     <option value="smartphones">Celulares</option>
                     <option value="home-decoration">Decoraciones</option>
                 </select>

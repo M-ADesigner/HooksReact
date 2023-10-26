@@ -1,21 +1,21 @@
-
-import './App.css'
+import './App.css';
+import PruebaTecnica from './examples/PruebaTecnica';
 // import AutoFocus from './examples/AutoFocus'
-import MensajePrevio from './examples/MensajePrevio'
 // import Contador from './examples/Contador'
 /* import PulsarBotones from './examples/PulsarBotones' */
 
 function App() {
+    return (
+        <>
+            {/* <PulsarBotones></PulsarBotones> */}
+            {/* <Contador></Contador> */}
+            {/* <AutoFocus></AutoFocus> */}
 
-  return (
-    <>
-    {/* <PulsarBotones></PulsarBotones> */}
-    {/* <Contador></Contador> */}
-    {/* <AutoFocus></AutoFocus> */}
+            {/*    <MensajePrevio></MensajePrevio> */}
 
-    <MensajePrevio></MensajePrevio>
-    </>
-  )
+            <PruebaTecnica></PruebaTecnica>
+        </>
+    );
 }
 
-export default App
+export default App;

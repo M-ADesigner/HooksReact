@@ -1,4 +1,4 @@
-export const initialState = [];
+export const initialState = JSON.parse(localStorage.getItem('cart')) || [];
 export function cartREeducer(state, action) {
     const { type: actionType, payload: actionPayload } = action;
     switch (actionType) {
@@ -14,6 +14,13 @@ export function cartREeducer(state, action) {
                 newState[productInCartIndex].quantity += 1;
                 return newState;
             }
+
+            // ⚡ usando el spread operator y slice
+            // const newState = [
+            //     ...state.slice(0, productInCartIndex),
+            //     { ...state[productInCartIndex], quantity: state[productInCartIndex].quantity + 1 },
+            //     ...state.slice(productInCartIndex + 1)
+            // ]
             return [
                 ...state,
                 {

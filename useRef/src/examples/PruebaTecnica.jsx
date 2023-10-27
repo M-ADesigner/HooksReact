@@ -5,14 +5,16 @@ import { useMovies } from '../hooks/useMovie';
 import { useSearch } from '../hooks/useSearch';
 
 function PruebaTecnica() {
-    const { movies: mappedMovies } = useMovies();
-    const { search, updateSearch, error } = useSearch();
+    const [sort, setSort] = useState(false);
+    const { search, error, updateSearch } = useSearch();
+    const { movies, gestMovies, loading } = useMovies({ search, sort });
 
     // const [query, setQuery] = useState('');
-    const inputRef = useRef();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        gestMovies(search);
 
         /*  //Forma no contralada */
         // const { query } = Object.fromEntries(new FormData(event.target));
@@ -31,6 +33,10 @@ function PruebaTecnica() {
         updateSearch(event.target.value);
     };
 
+    const handleSort = () => {
+        setSort(!sort);
+    };
+
     return (
         <div className="page">
             <header>
@@ -43,21 +49,24 @@ function PruebaTecnica() {
                         style={{
                             border: '1px solid transparent',
                             borderColor: error ? 'red' : 'transparent',
-                          
                         }}
-                        className='queryImput'
+                        className="queryImput"
                         name="query"
-                        ref={inputRef}
                         placeholder="Avengers , Star Wars, The Matrix"
                         value={search}
                         onChange={handleChange}
+                    />
+                    <input
+                        type="checkbox"
+                        onChange={handleSort}
+                        checked={sort}
                     />
                     <button type="submit">Buscar</button>
                 </form>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
             </header>
             <main>
-                <Movies movies={mappedMovies} />
+                {loading ? <p>Cargando</p> : <Movies movies={movies} />}
             </main>
         </div>
     );
